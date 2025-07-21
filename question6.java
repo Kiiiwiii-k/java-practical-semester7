@@ -21,7 +21,7 @@ public class question6 { // rename to VotingSystem
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Aayush Chandra Pradhan");
+        System.out.println("Khusboo Karki");
         System.out.print("Enter your age: ");
         int age = sc.nextInt();
 

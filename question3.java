@@ -32,6 +32,6 @@ public class question3 {
 
 
         // Main thread message
-        System.out.println("Aayush Chandra Pradhan");
+        System.out.println("Khusboo Karki");
     }
 }

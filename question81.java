@@ -6,7 +6,7 @@ public class question81 { // AWTvsSwingVisualDemo
     public static void main(String[] args) {
         // ----------- AWT Window -----------
         Frame awtFrame = new Frame("AWT Window");
-        Label awtLabel = new Label("Aayush Chandra Pradhan");
+        Label awtLabel = new Label("Khusboo Karki");
         Button awtButton = new Button("Click me");
 
         awtLabel.setBounds(50, 50, 100, 30);

@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class question10 { // ComboBoxAndListDemo
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Aayush Chandra Pradhan");
+        JFrame frame = new JFrame("Khusboo Karki");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());

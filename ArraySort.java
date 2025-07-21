@@ -6,7 +6,7 @@ public class ArraySort // Name this ArraySort
 	public static void main(String[] args)
 	{
 		Scanner scanner = new Scanner(System.in);
-        System.out.println("Aayush Chandra Pradhan");
+        System.out.println("Khusboo Karki");
 		System.out.print("Enter the number of elements: ");
 		int n = scanner.nextInt();
 

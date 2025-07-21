@@ -59,6 +59,6 @@ public class question5 { // Rename to SyncDemo or sth
         t1.start();
         t2.start();
 
-        System.out.println("Aayush Chandra Pradhan");
+        System.out.println("Khusboo Karki");
     }
 }

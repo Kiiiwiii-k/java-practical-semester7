@@ -1,54 +1,41 @@
-import java.io.*;
+import javax.swing.*;
+import java.awt.event.*;
 
-// 1. Create a class that implements Serializable
-class Student implements Serializable {
-    int id;
-    String name;
+public class question7 extends JFrame implements KeyListener {
+    JTextField inputField;
+    JLabel infoLabel;
 
-    // Constructor
-    public Student(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public question7() {
+        setTitle("KeyEvent Demo");
+        setSize(400, 200);
+        setLayout(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        infoLabel = new JLabel("Type something:");
+        infoLabel.setBounds(30, 30, 200, 30);
+        add(infoLabel);
+
+        inputField = new JTextField();
+        inputField.setBounds(30, 70, 300, 30);
+        inputField.addKeyListener(this); // attach KeyListener
+        add(inputField);
+
+        setVisible(true);
     }
 
-    // Display method
-    public void display() {
-        System.out.println("ID: " + id + ", Name: " + name);
+    public void keyTyped(KeyEvent e) {
+        infoLabel.setText("Key Typed: " + e.getKeyChar());
     }
-}
 
-public class question7 { // rename to FileSerializationExample
+    public void keyPressed(KeyEvent e) {
+        // Optional: show key code
+    }
+
+    public void keyReleased(KeyEvent e) {
+        // Optional: reset or do nothing
+    }
+
     public static void main(String[] args) {
-        // Object to write
-        Student s1 = new Student(101, "Khusboo Karki");
-
-        // 2. Write object to file
-        try {
-            FileOutputStream fos = new FileOutputStream("student.ser");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(s1);  // Serialize object
-            oos.close();
-            fos.close();
-
-            System.out.println("Object written to file.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // 3. Read object from file
-        try {
-            FileInputStream fis = new FileInputStream("student.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            Student s2 = (Student) ois.readObject();  // Deserialize
-            ois.close();
-            fis.close();
-
-            System.out.println("Object read from file:");
-            s2.display();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        new question7();
     }
 }

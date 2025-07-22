@@ -1,64 +1,35 @@
-class Counter {
-    private int count = 0;
+import javax.swing.*;
+import java.awt.event.*;
 
-    // Synchronized method - whole method is locked
-    public synchronized void increment() {
-        count++;
-        System.out.println("Synchronized Method: Count = " + count);
-    }
-
-    // Synchronized block - only this block is locked
-    public void decrement() {
-        synchronized(this) {
-            count--;
-            System.out.println("Synchronized Block: Count = " + count);
-        }
-    }
-
-    public int getCount() {
-        return count;
-    }
-}
-
-class MyThread1 extends Thread {
-    private Counter counter;
-    private boolean increment;
-
-    public MyThread1(Counter counter, boolean increment) {
-        this.counter = counter;
-        this.increment = increment;
-    }
-
-    public void run() {
-        for (int i = 0; i < 5; i++) {
-            if (increment) {
-                counter.increment(); // synchronized method
-            } else {
-                counter.decrement(); // synchronized block
-            }
-
-            try {
-                Thread.sleep(100); // sleep to simulate delay
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-
-public class question5 { // Rename to SyncDemo or sth
+public class question5 { // SwingMenuExample
     public static void main(String[] args) {
-        Counter counter = new Counter();
+        JFrame f = new JFrame("Khusboo Karki - Swing Menu");
+        f.setSize(300, 200);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Thread to increment count
-        MyThread1 t1 = new MyThread1(counter, true);
+        JMenuBar menuBar = new JMenuBar();
 
-        // Thread to decrement count
-        MyThread1 t2 = new MyThread1(counter, false);
+        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu2 = new JMenu("File 2");
+        JMenu fileMenu3 = new JMenu("File 3");
+        JMenuItem open = new JMenuItem("Open");
+        JMenuItem exit = new JMenuItem("Exit");
 
-        t1.start();
-        t2.start();
+        fileMenu.add(open);
+        fileMenu.add(exit);
+        menuBar.add(fileMenu);
+        menuBar.add(fileMenu2);
+        menuBar.add(fileMenu3);
 
-        System.out.println("bo");
+        f.setJMenuBar(menuBar);
+
+        // Event handling
+        exit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        f.setVisible(true);
     }
 }

@@ -1,37 +1,29 @@
-// 1. Extending Thread class
-class HelloThread extends Thread {
-    public void run() {
-        for (int i = 1; i <= 3; i++) {
-            System.out.println("Hello from HelloThread");
-        }
+import java.util.Scanner;
+
+// Custom exception class
+class MyException extends Exception {
+    public MyException(String message) {
+        super(message);
     }
 }
 
-// 2. Implementing Runnable interface
-class WorldRunnable implements Runnable {
-    public void run() {
-        for (int i = 1; i <= 3; i++) {
-            System.out.println("World from WorldRunnable");
-        }
-    }
-}
-
-// Main class
-public class question3 {
+public class question3 { // CustomExceptionDemo
     public static void main(String[] args) {
-        // Using Thread class
-        HelloThread t1 = new HelloThread();
-
-        // Using Runnable interface
-        WorldRunnable runnable = new WorldRunnable();
-        Thread t2 = new Thread(runnable); // Pass runnable to Thread
-
-        // Start both threads
-        t2.start();
-        t1.start();
-
-
-        // Main thread message
+        Scanner sc = new Scanner(System.in);
         System.out.println("Khusboo Karki");
+        System.out.print("Enter your age: ");
+        int age = sc.nextInt();
+
+        try {
+            if (age < 18) {
+                throw new MyException("Age must be 18 or above");
+            } else {
+                System.out.println("You are eligible.");
+            }
+        } catch (MyException e) {
+            System.out.println("Custom Exception: " + e.getMessage());
+        }
+
+        sc.close();
     }
 }

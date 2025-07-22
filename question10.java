@@ -1,50 +1,55 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.sql.*;
+import java.util.Scanner;
 
-public class question10 { // ComboBoxAndListDemo
+public class question10 {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Khusboo Karki");
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new FlowLayout());
+        Scanner sc = new Scanner(System.in);
 
-        // JComboBox with items
-        String[] comboItems = {"Apple", "Banana", "Cherry", "Date"};
-        JComboBox<String> comboBox = new JComboBox<>(comboItems);
-        frame.add(new JLabel("Select a fruit:"));
-        frame.add(comboBox);
+        // User input
+        System.out.print("Enter Firstname: ");
+        String fname = sc.nextLine();
+        System.out.print("Enter Lastname: ");
+        String lname = sc.nextLine();
+        System.out.print("Enter Contact Number: ");
+        String contact = sc.nextLine();
 
-        // JList with items
-        String[] listItems = {"Red", "Green", "Blue", "Yellow"};
-        JList<String> list = new JList<>(listItems);
-        list.setVisibleRowCount(4);
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane listScrollPane = new JScrollPane(list);
-        listScrollPane.setPreferredSize(new Dimension(100, 80));
-        frame.add(new JLabel("Select a color:"));
-        frame.add(listScrollPane);
+        // Connection info
+        String server = "//localhost\\MSSQL2019";  // or your server name
+        String port = "1433";
+        String database = "ContactDB";
 
-        // Label to show selections
-        JLabel selectionLabel = new JLabel("Your selection will appear here.");
-        frame.add(selectionLabel);
+        // Use Windows Authentication
+        String jdbcUrl = "jdbc:sqlserver://localhost\\MSSQL2019;" +
+                "databaseName=ContactDB;" +
+                "integratedSecurity=true;" +
+                "encrypt=true;" +
+                "trustServerCertificate=true";
 
-        // Event handling for JComboBox
-        comboBox.addActionListener(e -> {
-            String selectedFruit = (String) comboBox.getSelectedItem();
-            selectionLabel.setText("Selected fruit: " + selectedFruit);
-        });
 
-        // Event handling for JList
-        list.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                String selectedColor = list.getSelectedValue();
-                if (selectedColor != null) {
-                    selectionLabel.setText("Selected color: " + selectedColor);
-                }
+        try {
+            // Load SQL Server JDBC Driver
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            // Connect to database
+            Connection con = DriverManager.getConnection(jdbcUrl);
+
+            // Prepare SQL insert
+            String sql = "INSERT INTO Contacts (Firstname, Lastname, ContactNumber) VALUES (?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, contact);
+
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Contact saved successfully!");
             }
-        });
 
-        frame.setVisible(true);
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        sc.close();
     }
 }

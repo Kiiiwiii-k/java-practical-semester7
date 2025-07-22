@@ -1,36 +1,41 @@
-import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
 
-// Step 1: User-defined exception
-class InvalidAgeException extends Exception {
-    public InvalidAgeException(String message) {
-        super(message);
-    }
-}
-
-public class question6 { // rename to VotingSystem
-    // Step 2: Method that throws the exception
-    public static void checkAge(int age) throws InvalidAgeException {
-        if (age < 18) {
-            throw new InvalidAgeException("You must be at least 18 to vote.");
-        } else {
-            System.out.println("You are eligible to vote.");
-        }
-    }
-
-    // Step 3: Main method with user input
+public class question6 { // AllBordersExample
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        JFrame f = new JFrame("Khusboo Karki");
+        f.setSize(500, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLayout(new GridLayout(2, 3, 10, 10));
 
-        System.out.println("Khusboo Karki");
-        System.out.print("Enter your age: ");
-        int age = sc.nextInt();
+        JLabel line = new JLabel("Line Border", JLabel.CENTER);
+        line.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        try {
-            checkAge(age);
-        } catch (InvalidAgeException e) {
-            System.out.println("Exception caught: " + e.getMessage());
-        }
+        JLabel etched = new JLabel("Etched Border", JLabel.CENTER);
+        etched.setBorder(BorderFactory.createEtchedBorder());
 
-        sc.close();
+        JLabel bevel = new JLabel("Bevel Border", JLabel.CENTER);
+        bevel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+
+        JLabel titled = new JLabel("Titled Border", JLabel.CENTER);
+        titled.setBorder(BorderFactory.createTitledBorder("Title"));
+
+        JLabel empty = new JLabel("Empty Border", JLabel.CENTER);
+        empty.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel compound = new JLabel("Compound Border", JLabel.CENTER);
+        Border outer = BorderFactory.createLineBorder(Color.RED);
+        Border inner = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+        compound.setBorder(BorderFactory.createCompoundBorder(outer, inner));
+
+        f.add(line);
+        f.add(etched);
+        f.add(bevel);
+        f.add(titled);
+        f.add(empty);
+        f.add(compound);
+
+        f.setVisible(true);
     }
 }

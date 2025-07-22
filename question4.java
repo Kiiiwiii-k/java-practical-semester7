@@ -1,50 +1,29 @@
-class MyThread extends Thread {
-    public void run() {
-        synchronized(this) {
-            System.out.println("Khusboo Karki");
-            System.out.println(getName() + " started");
+import javax.swing.*;
+import javax.swing.event.*;
 
-            try {
-                System.out.println(getName() + " sleeping...");
-                Thread.sleep(1000); // sleep()
-
-                System.out.println(getName() + " yielding...");
-                Thread.yield(); // yield()
-
-                System.out.println(getName() + " waiting...");
-                wait(); // wait()
-            } catch (InterruptedException e) {
-                System.out.println(getName() + " interrupted");
-            }
-
-            System.out.println(getName() + " resumed after notify");
-        }
-    }
-}
-
-public class question4 { // name as ThreadDemo or similar while writing in copy
+public class question4 { // SliderChangeEvent
     public static void main(String[] args) {
-        MyThread t1 = new MyThread();
-        t1.setName("Thread-1");
-        t1.start();
+        JFrame f = new JFrame("Khusboo - JSlider Example");
+        f.setSize(300, 150);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLayout(null);
 
-        try {
-            Thread.sleep(2000); // Ensure t1 starts and waits
-        } catch (InterruptedException e) {}
+        JSlider slider = new JSlider(0, 100, 50);
+        slider.setBounds(50, 30, 200, 40);
 
-        synchronized(t1) {
-            System.out.println("Main thread notifying...");
-            t1.notify(); // notify()
-        }
+        JLabel label = new JLabel("Value: 50");
+        label.setBounds(110, 70, 100, 20);
 
-        // Unsafe stop (for demo only)
-        MyThread t2 = new MyThread();
-        t2.setName("Thread-2");
-        t2.start();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {}
-        System.out.println("Main thread stopping Thread-2 (unsafe)");
-        t2.stop(); // Deprecated
+        // Handling change event
+        slider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int value = slider.getValue();
+                label.setText("Value: " + value);
+            }
+        });
+
+        f.add(slider);
+        f.add(label);
+        f.setVisible(true);
     }
 }

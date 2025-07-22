@@ -1,55 +1,50 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
-public class question9 { // FormDemo
+public class question9 extends JFrame implements FocusListener {
+    JTextField tf1, tf2;
+    JLabel label;
+
+    public question9() {
+        setTitle("Focus Event Demo");
+        setSize(350, 200);
+        setLayout(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        tf1 = new JTextField();
+        tf1.setBounds(50, 30, 250, 30);
+        tf1.addFocusListener(this);
+        add(tf1);
+
+        tf2 = new JTextField();
+        tf2.setBounds(50, 70, 250, 30);
+        tf2.addFocusListener(this);
+        add(tf2);
+
+        label = new JLabel("Focus status will appear here");
+        label.setBounds(50, 110, 300, 30);
+        add(label);
+
+        setVisible(true);
+    }
+
+    public void focusGained(FocusEvent e) {
+        if (e.getSource() == tf1) {
+            label.setText("TextField 1 gained focus");
+        } else if (e.getSource() == tf2) {
+            label.setText("TextField 2 gained focus");
+        }
+    }
+
+    public void focusLost(FocusEvent e) {
+        if (e.getSource() == tf1) {
+            label.setText("TextField 1 lost focus");
+        } else if (e.getSource() == tf2) {
+            label.setText("TextField 2 lost focus");
+        }
+    }
+
     public static void main(String[] args) {
-        // Create frame
-        JFrame frame = new JFrame("User Form");
-        frame.setSize(350, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Create panel
-        JPanel panel = new JPanel();
-        panel.setLayout(null); // using absolute layout
-        frame.add(panel);
-
-        // Labels
-        JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setBounds(20, 20, 80, 25);
-        panel.add(nameLabel);
-
-        JLabel passLabel = new JLabel("Password:");
-        passLabel.setBounds(20, 60, 80, 25);
-        panel.add(passLabel);
-
-        // Input fields
-        JTextField nameField = new JTextField();
-        nameField.setBounds(100, 20, 200, 25);
-        panel.add(nameField);
-
-        JPasswordField passField = new JPasswordField();
-        passField.setBounds(100, 60, 200, 25);
-        panel.add(passField);
-
-        // Button
-        JButton submitBtn = new JButton("Submit");
-        submitBtn.setBounds(100, 100, 100, 25);
-        panel.add(submitBtn);
-
-        // Text area
-        JTextArea outputArea = new JTextArea();
-        outputArea.setBounds(20, 140, 280, 100);
-        outputArea.setEditable(false);
-        panel.add(outputArea);
-
-        // Event handling
-        submitBtn.addActionListener(e -> {
-            String name = nameField.getText();
-            String pass = new String(passField.getPassword());
-            outputArea.setText("Submitted Info:\nName: " + name + "\nPassword: " + pass);
-        });
-
-        frame.setVisible(true);
+        new question9();
     }
 }
